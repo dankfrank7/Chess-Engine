@@ -1,0 +1,4 @@
+com\chess\engine\board\Tile$EmptyTile.class
+com\chess\engine\board\Tile$OccupiedTile.class
+com\chess\engine\board\Tile.class
+com\chess\engine\pieces\Piece.class

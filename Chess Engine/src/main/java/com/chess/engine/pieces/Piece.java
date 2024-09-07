@@ -1,4 +1,4 @@
-package chess.engine.pieces;
+package com.chess.engine.pieces;
 
 public class Piece {
     Piece() {
