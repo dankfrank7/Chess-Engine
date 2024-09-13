@@ -1,6 +1,7 @@
 package com.chess.engine.pieces;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -20,7 +21,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Move> calculateLegalMoves(final Board board) {
+    public Collection<Move> calculateLegalMoves(final Board board) {
 
         List<Move> legalMoves = new ArrayList<>();
 
@@ -39,13 +40,13 @@ public class Knight extends Piece {
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
             
                 if (!candidateDestinationTile.isTileOccupied()) {
-                    legalMoves.add(new Move(/* non attacking move */));
+                    legalMoves.add(new Move.MajorMove(board, this, candidateDestinationCoordinate));
                 } else { 
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
 
                     if (this.pieceAlliance != pieceAlliance) {
-                        legalMoves.add(new Move(/* attacking move */));
+                        legalMoves.add(new Move.AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination ));
                     }
                 }
             }
