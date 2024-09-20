@@ -26,9 +26,42 @@ public class Board {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePiece(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePiece(this.gameBoard, Alliance.BLACK);
+
+        final Collection<Move> whiteStandardMoves = calculateLegalMoves(this.whitePieces);
+        final Collection<Move> blackStandardMoves = calculateLegalMoves(this.blackPieces);
     }
 
-    private Collection<Piece> calculateActivePiece(List<Tile> gameBoard, Alliance alliance) {
+    @Override 
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < BoardUtils.NUM_TILES; i++) {
+            final String tileText = prettyPrint(this.gameBoard.get(i));
+            builder.append(String.format("%3s", tileText));
+            if ((i + 1) % BoardUtils.NUM_TILES_PER_ROW == 0) {
+                builder.append("\n");
+            } 
+        }
+    }
+
+
+    private String prettyPrint(Tile tile) {
+        if (tile.isTileOccupied()) {
+            // print black in lower case
+            return tile.getPiece().getPieceAlliance().isBlack() ? tile.toString().toLowerCase() : tile.toString();
+        }
+        return tile.toString();
+    }
+
+    private Collection<Move> calculateLegalMoves(Collection<Piece> pieces) {
+        final List<Move> legalMoves = new ArrayList<>();
+
+        for (final Piece piece : pieces) {
+            legalMoves.addAll(piece.calculateLegalMoves(this));
+        }
+        return ImmutableList.copyOf(legalMoves);
+    }
+
+    private static Collection<Piece> calculateActivePiece(List<Tile> gameBoard, Alliance alliance) {
         final List<Piece> activePieces = new ArrayList<>();
 
         for (final Tile tile : gameBoard) {
