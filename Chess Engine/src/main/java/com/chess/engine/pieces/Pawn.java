@@ -14,8 +14,20 @@ public class Pawn extends Piece {
 
     private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
     
-    Pawn(int piecePosition, Alliance pieceAlliance) {
+    public Pawn(int piecePosition, Alliance pieceAlliance) {
         super(piecePosition, pieceAlliance);
+    }
+
+    public Pawn(int piecePosition, Alliance black) {
+        //TODO Auto-generated constructor stub
+    }
+
+    public Pawn(int piecePosition, Alliance white) {
+        //TODO Auto-generated constructor stub
+    }
+
+    public Pawn(int piecePosition, Alliance white) {
+        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -51,10 +63,24 @@ public class Pawn extends Piece {
             
             // attacking moves
             } else if (currentCandidateOffset == 7 && 
-                        (BoardUtils.EIGHTH_COLUMN[this.piecePosition])) {
+                        ((BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceAlliance.isWhite()) || 
+                        (BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceAlliance.isBlack()))) {
 
-            } else if (currentCandidateOffset == 9 ) {
-
+                if (board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
+                    final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
+                    if (this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
+                        // To do: add attack move
+                        legalMoves.add(new Move.MajorMove(board, pieceOnCandidate, candidateDestinationCoordinate));
+                    }
+                }
+            } else if (currentCandidateOffset == 9 &&
+                ((BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceAlliance.isWhite()) || 
+                (BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceAlliance.isBlack()))) {
+                    final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
+                    if (this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
+                        // To do: add attack move
+                        legalMoves.add(new Move.MajorMove(board, pieceOnCandidate, candidateDestinationCoordinate));
+                    }
             }
          }
     return ImmutableList.copyOf(legalMoves);

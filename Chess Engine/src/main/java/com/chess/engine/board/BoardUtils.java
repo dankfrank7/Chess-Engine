@@ -8,7 +8,9 @@ public class BoardUtils {
     public static final boolean[] EIGHTH_COLUMN     = initColumn(7);
 
     public static final boolean[] SECOND_ROW     = null;
-    public static final boolean[] SEVENTH_ROW     = null;
+    public static final boolean[] SEVENTH_ROW     = null;\
+
+    public static final int NUM_TILES = 64;
 
     public static boolean[] initColumn(int columnNumber) {
         final boolean[] column = new boolean[64];

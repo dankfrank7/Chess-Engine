@@ -25,6 +25,10 @@ public abstract class Piece {
         return this.isFirstMove;
     }
 
+    public int getPiecePosition() {
+        return this.piecePosition;
+    }
+
     public abstract Collection<Move> calculateLegalMoves(final Board board);
 
     
