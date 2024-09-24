@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 public class WhitePlayer extends Player {
 
-    public WhitePlayer(final Board board,final  Collection<Move> whiteStandardLegalMoves,final  Collection<Move> blackStandardLegalMoves) {
+    public WhitePlayer(final Board board, final  Collection<Move> whiteStandardLegalMoves, final Collection<Move> blackStandardLegalMoves) {
         super(board, whiteStandardLegalMoves, blackStandardLegalMoves);
     }
 

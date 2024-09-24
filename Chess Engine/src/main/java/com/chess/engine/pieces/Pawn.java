@@ -39,19 +39,17 @@ public class Pawn extends Piece {
             // normal move forward
             if (currentCandidateOffset == 8 && !board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                 // to do: implement promotions, en passent, 
-                // to do: implement pawn move here
-                legalMoves.add(new Move.MajorMove(board, this, candidateDestinationCoordinate));
+                legalMoves.add(new Move.PawnMove(board, this, candidateDestinationCoordinate));
             
             // first move jump
             } else if (currentCandidateOffset == 16 && this.isFirstMove() && 
-                (BoardUtils.SEVENTH_RANK[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
-                (BoardUtils.SECOND_RANK[this.piecePosition] && this.getPieceAlliance().isWhite())) {
+                ((BoardUtils.SEVENTH_RANK[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
+                (BoardUtils.SECOND_RANK[this.piecePosition] && this.getPieceAlliance().isWhite()))) {
                 // pawn jump first move
                 final int behindCandidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance.getDirection() * 8);
                 if (!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() && 
                     !board.getTile(candidateDestinationCoordinate).isTileOccupied()) { 
-                        // to do: implement jump pawn move here
-                        legalMoves.add(new Move.MajorMove(board, this, candidateDestinationCoordinate));
+                        legalMoves.add(new Move.PawnJump(board, this, candidateDestinationCoordinate));
                     }
             
             // attacking moves
@@ -62,7 +60,7 @@ public class Pawn extends Piece {
                 if (board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if (this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
-                        // To do: add attack move
+                        // TODO: add attack move
                         legalMoves.add(new Move.MajorMove(board, pieceOnCandidate, candidateDestinationCoordinate));
                     }
                 }
@@ -73,7 +71,7 @@ public class Pawn extends Piece {
                 if (board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if (this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
-                        // To do: add attack move
+                        // TODO: add attack move
                         legalMoves.add(new Move.MajorMove(board, pieceOnCandidate, candidateDestinationCoordinate));
                     }
                 }
